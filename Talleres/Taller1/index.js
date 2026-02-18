@@ -26,10 +26,11 @@ const users = [
   },
 ];
 
-const main = document.getElementById("main");
+
 const number = document.getElementById("number");
 const button = document.getElementById("button");
-const number_value = number.value;
+const loader = document.getElementById("loader")
+
 
 
 function obtenerUsuario(number_value) {
@@ -37,26 +38,38 @@ function obtenerUsuario(number_value) {
     setTimeout(() =>{
       const user = users.find(u => u.id === Number(number_value));
       if (user) {
-        res(alert("Usuario encontrado:\n" +
-          "Id: " + user.id + "\n" + "Nombre: " + user.name + "\n" + "Email: " + user.email));
+        res(user);
       }else{
         rej("Usuario no encontrado, intente nuevamente")
       }
-    }, 2000)
+    }, 3000)
     
   })
 
 }
 
 button.addEventListener("click", () => {
-  if (number_value === "") return;
+  const number_value = number.value;
+  if (number_value === "") return alert("Por favor, ingrese un ID");
   if (number_value < 0) {
     alert("Valor no permitido, ingrese un valor nuevamente");
   } else if (number_value > 5) {
     alert("Fuera de rango");
   }
+  
+  
+  loader.classList.remove("hidden");
 
-  obtenerUsuario(number_value)
+  obtenerUsuario(number_value).then((user) =>{
+    alert("Usuario encontrado:\n" +
+          "Id: " + user.id + "\n" + "Nombre: " + user.name + "\n" + "Email: " + user.email)
+  })
+  .catch((mensaje) => {
+    alert(mensaje);
+  })
+  .finally (() => {
+    loader.classList.add("hidden");
+  })
   
 
 
