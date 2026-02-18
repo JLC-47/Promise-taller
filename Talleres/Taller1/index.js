@@ -55,10 +55,8 @@ button.addEventListener("click", () => {
     alert("Valor no permitido, ingrese un valor nuevamente");
   } else if (number_value > 5) {
     alert("Fuera de rango");
-  }
-  
-  
-  loader.classList.remove("hidden");
+  }else{
+    loader.classList.remove("hidden");
 
   obtenerUsuario(number_value).then((user) =>{
     alert("Usuario encontrado:\n" +
@@ -70,6 +68,10 @@ button.addEventListener("click", () => {
   .finally (() => {
     loader.classList.add("hidden");
   })
+  }
+  
+  
+  
   
 
 
